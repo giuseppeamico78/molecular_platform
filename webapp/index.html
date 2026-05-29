@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Molecular Platform</title>
+    <link rel="stylesheet" href="/viewer/styles.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: "Inter", sans-serif;
+            background: #f7f7f7;
+        }
+        #app-container {
+            padding: 20px;
+        }
+        .section-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        #viewer-container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="app-container">
+
+    <div class="section-title">Molecular Platform</div>
+
+    <input type="text" id="structure-id" placeholder="Inserisci PDB ID, CID, ChEMBL ID o UniProt">
+    <button id="load-btn">Carica struttura</button>
+
+    <div id="viewer-container"></div>
+
+</div>
+
+<script type="module">
+    import { MolecularViewer } from "/viewer/viewer.js";
+
+    // Inizializziamo il viewer (come promesso)
+    const viewer = new MolecularViewer("viewer-container", {
+        theme: "light",
+        title: "Molecular Platform Viewer"
+    });
+
+    document.getElementById("load-btn").onclick = async () => {
+        const id = document.getElementById("structure-id").value.trim();
+        if (!id) return;
+
+        const response = await fetch(`/api/load_structure?id=${id}`);
+        const data = await response.json();
+
+        if (data.content) {
+            viewer.loadMoleculeFromString(data.content, data.type || "protein");
+            viewer.setSidebarText(`Caricato: ${id}`);
+        } else {
+            viewer.setSidebarText("Errore: struttura non trovata.");
+        }
+    };
+</script>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+/* Layout moderno del viewer */
+
+.viewer-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    background: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+}
+
+.viewer-logo {
+    width: 32px;
+    height: 32px;
+}
+
+.viewer-title {
+    font-family: "Inter", sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.viewer-main {
+    display: flex;
+    width: 100%;
+    height: 600px;
+}
+
+.viewer-3d {
+    flex: 1;
+    border-right: 1px solid #ddd;
+}
+
+.viewer-sidebar {
+    width: 260px;
+    padding: 12px;
+    background: #fafafa;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    color: #444;
+}
